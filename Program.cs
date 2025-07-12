@@ -104,5 +104,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+// Add *after* app.MapControllers();
+app.MapGet("/", () => "✅ HerbalHub backend is running!");
 
 app.Run();
