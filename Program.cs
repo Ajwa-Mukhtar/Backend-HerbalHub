@@ -17,7 +17,7 @@ builder.Services.AddDbContext<AppDbcontext>(options =>
 // Register custom services
 builder.Services.AddApplicationServices();
 
-// ✅ Add CORS Policy (BEFORE builder.Build())
+// ✅ Add CORS Policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -88,23 +88,21 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-// Middleware Pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// ✅ Middleware Pipeline
+
+app.UseSwagger();          // ← Always enable Swagger (even in production)
+app.UseSwaggerUI();       // ← Always enable Swagger UI
 
 app.UseHttpsRedirection();
 
-// ✅ CORS Middleware (AFTER UseRouting, BEFORE UseAuthorization)
 app.UseRouting();
-app.UseCors("AllowAll"); // 🔥 Critical placement
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-// Add *after* app.MapControllers();
+
+// Add root endpoint
 app.MapGet("/", () => "✅ HerbalHub backend is running!");
 
 app.Run();
