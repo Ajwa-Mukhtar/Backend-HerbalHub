@@ -1,0 +1,6 @@
+@HerbalHub_HostAddress = http://localhost:5157
+
+GET {{HerbalHub_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
