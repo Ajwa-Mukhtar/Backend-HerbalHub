@@ -9,7 +9,6 @@ namespace HerbalHub.Interfaces
     {
         Task<ResponseVM> createuser(CreateUserVm user);
         Task<ResponseVM> LoginUser(LoginUserVm user);
-        Task<ResponseVM> GetUserProfileByEmail(string email);
 
         Task<ResponseVM> GetAllUsersAsync();
         Task<ResponseVM> VerifyEmail(string userEmail);
